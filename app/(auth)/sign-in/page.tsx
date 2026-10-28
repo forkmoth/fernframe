@@ -1,7 +1,18 @@
+'use client'
+
 import Link from 'next/link'
 import Image from "next/image";
+import { authClient } from '@/lib/auth-client';
 
 const AuthPage = () => {
+
+  const handleSignIn = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  };
+
   return (
     <main className='sign-in'>
       <aside className='testimonial'>
@@ -62,7 +73,7 @@ const AuthPage = () => {
             <h1>Fernframe</h1>
           </Link>
           <p>Create and share your very first <span>Fernframe video</span> in no time.</p>
-          <button>
+          <button onClick={handleSignIn}>
             <Image
               src="/assets/icons/google.svg"
               alt="google"
